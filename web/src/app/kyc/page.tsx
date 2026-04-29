@@ -101,7 +101,7 @@ export default function KYCPage() {
         setAiData(details);
         showNotification('AI successfully extracted document details!', 'success');
       } catch (err: any) {
-        showNotification('AI Analysis failed. Please enter details manually.', 'warning');
+        showNotification('AI Analysis failed. Please enter details manually.', 'error');
       } finally {
         setAnalyzing(false);
       }
