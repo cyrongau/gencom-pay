@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import Shell from '@/components/Shell';
-import { QRCodeSVG } from 'qr-code-svg';
+
 
 export default function TransactionReceipt() {
   const { id } = useParams();
