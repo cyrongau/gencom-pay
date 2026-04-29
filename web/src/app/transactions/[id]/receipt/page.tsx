@@ -82,7 +82,7 @@ export default function TransactionReceipt() {
               <ReceiptRow label="Status" value={receipt.status} success />
               <ReceiptRow label="Timestamp" value={new Date(receipt.timestamp).toLocaleString()} />
               <ReceiptRow label="Network Node" value={receipt.network_node} />
-              <ReceiptRow label="Merchant ID" value={id.substring(0, 16).toUpperCase()} mono />
+              <ReceiptRow label="Merchant ID" value={String(id).substring(0, 16).toUpperCase()} mono />
            </div>
 
            {/* QR Verification */}
