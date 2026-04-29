@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../services/api_service.dart';
 import '../services/biometric_service.dart';
@@ -33,7 +34,11 @@ class AuthProvider with ChangeNotifier {
       
       return await fetchProfile();
     } catch (e) {
-      _error = 'Login failed. Please check your credentials.';
+      if (e is DioException) {
+        _error = e.response?.data['message'] ?? 'Network Error: ${e.type}';
+      } else {
+        _error = 'Login failed. Please check your credentials.';
+      }
       return false;
     } finally {
       _isLoading = false;
