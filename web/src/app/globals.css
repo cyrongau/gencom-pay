@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0B1225;
+  --green: #16C66E;
+  --blue: #4A68E7;
+  --teal: #0F3D3A;
+  --sky: #F0F5FF;
+  --soft-grey: #94A3B8;
+  --gold: #F5B800;
+  
+  --background: var(--navy);
+  --foreground: var(--sky);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-green: var(--green);
+  --color-blue: var(--blue);
+  --color-teal: var(--teal);
+  --color-sky: var(--sky);
+  --color-soft-grey: var(--soft-grey);
+  --color-gold: var(--gold);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --background-image-gradient-signature: linear-gradient(135deg, #16C66E 0%, #4A68E7 100%);
+  --background-image-gradient-dashboard: linear-gradient(135deg, #0B1225 0%, #4A68E7 100%);
+  --background-image-gradient-success: linear-gradient(135deg, #0F3D3A 0%, #16C66E 100%);
+  --background-image-gradient-card: linear-gradient(145deg, rgba(15, 61, 58, 0.4) 0%, rgba(11, 18, 37, 0.4) 100%);
+}
+
+@layer base {
+  body {
+    background-color: var(--navy);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-attachment: fixed;
+  }
+
+  * {
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl;
+  }
+
+  .glass-input {
+    @apply bg-navy/40 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-green transition-all placeholder:text-soft-grey/50;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-signature text-white font-black py-5 px-10 rounded-2xl shadow-xl shadow-green/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-3 uppercase tracking-widest text-xs;
+  }
+
+  .btn-secondary {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 text-white font-bold py-5 px-10 rounded-2xl hover:bg-white/10 transition-all uppercase tracking-widest text-xs;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-signature;
+  }
+}
+
+.card-glow-green {
+  box-shadow: 0 0 40px -10px rgba(22, 198, 110, 0.2);
+}
+
+.card-glow-blue {
+  box-shadow: 0 0 40px -10px rgba(74, 104, 231, 0.2);
+}
+
+/* Financial Design Utilities */
+.glass-financial {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+}
+
+.watermark-text {
+  font-size: 14rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  position: absolute;
+  left: -2rem;
+  bottom: -4rem;
+  pointer-events: none;
+  user-select: none;
+  font-style: italic;
+  line-height: 1;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
