@@ -3,30 +3,72 @@ version: '3.8'
 services:
   db:
     image: postgres:16-alpine
-    container_name: generex-db
+    container_name: gencom-pay-db
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: gencom_pay
     ports:
-      - '5433:5432'
+      - '5444:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d gencom_pay"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - gencom-network
 
   redis:
     image: redis:7-alpine
-    container_name: generex-redis
+    container_name: gencom-pay-redis
     restart: always
     ports:
-      - '6379:6379'
+      - '6388:6379'
     volumes:
       - redis_data:/data
+    networks:
+      - gencom-network
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: gencom-pay-api
+    restart: always
+    environment:
+      - PORT=4000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_DATABASE=gencom_pay
+      - JWT_SECRET=${JWT_SECRET:-change-this-secret}
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./api/uploads:/app/uploads
+    networks:
+      - gencom-network
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: gencom-pay-web
+    restart: always
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:4000}
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+    networks:
+      - gencom-network
+
+networks:
+  gencom-network:
+    driver: bridge
 
 volumes:
   postgres_data:

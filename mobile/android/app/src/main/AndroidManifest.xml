@@ -3,7 +3,7 @@
     <application
         android:label="gencom_pay"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name="com.generex.pay.gencom_pay.MainActivity"
             android:exported="true"
