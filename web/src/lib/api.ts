@@ -1,10 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 
-           (typeof window !== 'undefined' && window.location.hostname.includes('generexcom.com') 
-             ? 'https://api.generexcom.com' 
-             : 'http://localhost:4000'),
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://api.generexcom.com',
 });
 
 // Add a request interceptor to include the JWT token

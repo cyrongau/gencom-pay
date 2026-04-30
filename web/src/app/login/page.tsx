@@ -9,10 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login, branding } = useAuth();
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 
-                    (typeof window !== 'undefined' && window.location.hostname.includes('generexcom.com') 
-                      ? 'https://api.generexcom.com' 
-                      : 'http://localhost:4000');
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.generexcom.com';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
