@@ -10,6 +10,9 @@ RUN npm install
 COPY . .
 RUN npm run build
 
+# Debug: list the dist folder content
+RUN ls -R dist
+
 # Production stage
 FROM node:20-alpine
 
@@ -27,5 +30,5 @@ RUN mkdir -p uploads
 
 EXPOSE 4000
 
-# Run the app
-CMD ["node", "dist/main.js"]
+# Run the app - using find to handle cases where main.js might be in dist/src/main.js
+CMD ["sh", "-c", "node $(find dist -name main.js | head -n 1)"]
