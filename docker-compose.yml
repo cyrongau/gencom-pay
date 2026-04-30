@@ -55,10 +55,12 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://api.generexcom.com}
     container_name: gencom-pay-web
     restart: always
     environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:4000}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://api.generexcom.com}
     ports:
       - '3000:3000'
     depends_on:

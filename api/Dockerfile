@@ -8,11 +8,8 @@ RUN npm install
 
 # Copy source and build
 COPY . .
-RUN ls -la src/
-RUN npm run build
-
-# Debug: list the dist folder content properly
-RUN echo "Checking dist contents:" && find dist -name "*.js"
+# Force a clean build to avoid incremental build issues
+RUN rm -rf dist && npm run build
 
 # Production stage
 FROM node:20-alpine
