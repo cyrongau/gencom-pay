@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy source and build
+# Copy source code and build
 COPY . .
 # Force a clean build to avoid incremental build issues
 RUN rm -rf dist && npm run build
