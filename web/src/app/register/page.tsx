@@ -10,7 +10,10 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { register, branding } = useAuth();
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 
+                    (typeof window !== 'undefined' && window.location.hostname.includes('generexcom.com') 
+                      ? 'https://api.generexcom.com' 
+                      : 'http://localhost:4000');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

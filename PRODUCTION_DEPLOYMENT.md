@@ -35,7 +35,11 @@ Create a `.env` file in the root directory:
 DB_PASSWORD=your_secure_db_password
 JWT_SECRET=your_production_jwt_secret
 NEXT_PUBLIC_API_URL=https://api.generexcom.com
+OPEN_ROUTER_API_KEY=your_openrouter_api_key_here
 ```
+
+> [!IMPORTANT]
+> Never commit your `.env` or `gencom_backup.sql` files to GitHub. They contain sensitive API keys and database credentials.
 
 ### 3. Launch with Docker Compose
 ```bash

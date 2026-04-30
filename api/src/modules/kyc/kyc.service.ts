@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { KYCRecord, KYCStatus, IDType } from './entities/kyc.entity';
 import { ILike, Like } from 'typeorm';
@@ -15,6 +16,7 @@ export class KYCService {
     @InjectRepository(SystemSetting)
     private settingsRepository: Repository<SystemSetting>,
     private userService: UserService,
+    private configService: ConfigService,
   ) {}
 
   async getSetting(key: string): Promise<string | null> {
@@ -37,8 +39,8 @@ export class KYCService {
   }
 
   async analyzeDocument(base64Image: string): Promise<any> {
-    const apiKey = await this.getSetting('OPEN_ROUTER_API_KEY');
-    const model = await this.getSetting('AI_MODEL') || 'google/gemini-2.0-flash-001';
+    const apiKey = this.configService.get<string>('OPEN_ROUTER_API_KEY');
+    const model = this.configService.get<string>('AI_MODEL') || 'google/gemini-2.0-flash-001';
 
     if (!apiKey || apiKey.trim() === '' || apiKey === 'Admin1234!') {
       console.warn('Open Router API Key not configured or invalid. Using mock analysis.');
